@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — TiroLog</title>
+<style>
+  body{font-family:'Segoe UI',Arial,sans-serif;max-width:720px;margin:0 auto;padding:32px 20px 60px;color:#e0ddd8;line-height:1.7;background:#0d0d0d}
+  h1{font-size:26px;margin-bottom:4px;color:#f0ede8}
+  .subtitle{color:#666;font-size:14px;margin-bottom:36px}
+  h2{font-size:17px;margin-top:32px;margin-bottom:8px;color:#c8a84b;border-bottom:1px solid #2e2e2e;padding-bottom:6px}
+  p,li{font-size:15px;color:#b0aca8}
+  ul{padding-left:20px}
+  a{color:#c8a84b}
+  code{background:#1e1e1e;padding:1px 5px;border-radius:4px;font-size:13px;color:#c8a84b}
+  .footer{margin-top:48px;font-size:13px;color:#555;border-top:1px solid #2e2e2e;padding-top:16px}
+  .lang-block{display:none}
+  .lang-block.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="lang-block" id="lang-es">
+<h1>Política de Privacidad</h1>
+<div class="subtitle">TiroLog · Última actualización: abril 2026</div>
+<h2>1. Quién somos</h2>
+<p>TiroLog es una aplicación web progresiva (PWA) para el registro de sesiones de tiro deportivo, desarrollada por <strong>Sapemaib</strong>. Puedes contactarnos en <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Qué datos recoge la aplicación</h2>
+<p>TiroLog recoge únicamente los datos que el propio usuario introduce:</p>
+<ul>
+  <li>Sesiones de tiro: fecha, hora, puntuación, modalidad y notas opcionales.</li>
+  <li>Modalidades de tiro creadas por el usuario.</li>
+  <li>Registros de compras de material relacionado con el tiro.</li>
+</ul>
+<p>La aplicación <strong>no recoge</strong> datos personales de identificación (nombre, dirección, teléfono), datos de ubicación, ni información del dispositivo más allá de lo necesario para el funcionamiento técnico de la PWA.</p>
+<h2>3. Dónde se almacenan los datos</h2>
+<p>Todos los datos se almacenan <strong>localmente en el dispositivo del usuario</strong> mediante IndexedDB. Los datos no se envían a ningún servidor propiedad de Sapemaib.</p>
+<p>De forma opcional, el usuario puede activar la copia de seguridad automática en <strong>Google Drive</strong>. En ese caso, los datos se guardan en la carpeta privada de la app dentro de la cuenta de Google Drive del propio usuario (<code>appDataFolder</code>). Sapemaib no tiene acceso a esos archivos en ningún momento.</p>
+<h2>4. Uso de Google Drive</h2>
+<p>Si el usuario activa la integración con Google Drive, TiroLog solicita acceso al scope <code>https://www.googleapis.com/auth/drive.file</code>, que permite crear y actualizar únicamente los ficheros que la propia app ha creado, sin acceder a ningún otro fichero del Drive del usuario.</p>
+<p>El token de acceso se almacena temporalmente en el dispositivo y se utiliza exclusivamente para subir y descargar el fichero de copia de seguridad de TiroLog. El uso de los datos obtenidos a través de las APIs de Google cumple con la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Política de datos de usuario de los servicios de API de Google</a>.</p>
+<h2>5. Compartición de datos con terceros</h2>
+<p>TiroLog <strong>no vende, alquila ni comparte</strong> ningún dato del usuario con terceros.</p>
+<h2>6. Cookies y rastreo</h2>
+<p>TiroLog no utiliza cookies propias ni tecnologías de rastreo. No integra herramientas de analítica ni publicidad.</p>
+<h2>7. Derechos del usuario</h2>
+<ul>
+  <li><strong>Exportar:</strong> desde la pestaña "Backup" puede descargar todos sus datos en formato JSON.</li>
+  <li><strong>Eliminar:</strong> borrar la aplicación del navegador elimina todos los datos locales.</li>
+  <li><strong>Desconectar Drive:</strong> desde la pestaña "Backup" puede revocar el acceso a Google Drive.</li>
+</ul>
+<h2>8. Cambios en esta política</h2>
+<p>Si se realizan cambios relevantes, se actualizará la fecha de la cabecera y se notificará mediante la propia aplicación cuando sea posible.</p>
+<h2>9. Contacto</h2>
+<p>Para cualquier consulta relacionada con la privacidad, escríbenos a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Desarrollado por Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Volver a la app</a></div>
+</div>
+
+<div class="lang-block" id="lang-en">
+<h1>Privacy Policy</h1>
+<div class="subtitle">TiroLog · Last updated: April 2026</div>
+<h2>1. Who we are</h2>
+<p>TiroLog is a Progressive Web App (PWA) for logging sport shooting sessions, developed by <strong>Sapemaib</strong>. Contact us at <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. What data the app collects</h2>
+<p>TiroLog only collects data that the user explicitly enters:</p>
+<ul>
+  <li>Shooting sessions: date, time, score, modality and optional notes.</li>
+  <li>Shooting modalities created by the user.</li>
+  <li>Purchase records for shooting-related equipment.</li>
+</ul>
+<p>The app does <strong>not collect</strong> personal identification data (name, address, phone), location data, or device information beyond what is technically required for the PWA to function.</p>
+<h2>3. Where data is stored</h2>
+<p>All data is stored <strong>locally on the user's device</strong> using IndexedDB. Data is never sent to any server owned by Sapemaib.</p>
+<p>Optionally, the user can enable automatic backup to <strong>Google Drive</strong>. In that case, data is saved in the app's private folder within the user's own Google Drive account (<code>appDataFolder</code>). Sapemaib has no access to those files at any time.</p>
+<h2>4. Google Drive usage</h2>
+<p>If the user enables Google Drive integration, TiroLog requests the <code>https://www.googleapis.com/auth/drive.file</code> scope, which allows creating and updating only the files the app itself has created, without accessing any other files in the user's Drive.</p>
+<p>The access token is stored temporarily on the device and used exclusively to upload and download TiroLog's backup file. Data use complies with the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google API Services User Data Policy</a>.</p>
+<h2>5. Data sharing with third parties</h2>
+<p>TiroLog <strong>does not sell, rent, or share</strong> any user data with third parties.</p>
+<h2>6. Cookies and tracking</h2>
+<p>TiroLog does not use cookies or tracking technologies. It does not integrate analytics or advertising tools.</p>
+<h2>7. User rights</h2>
+<ul>
+  <li><strong>Export:</strong> from the "Backup" tab you can download all your data as JSON.</li>
+  <li><strong>Delete:</strong> clearing the app from your browser removes all local data.</li>
+  <li><strong>Disconnect Drive:</strong> from the "Backup" tab you can revoke Google Drive access.</li>
+</ul>
+<h2>8. Changes to this policy</h2>
+<p>If relevant changes are made, the header date will be updated and users will be notified via the app when possible.</p>
+<h2>9. Contact</h2>
+<p>For any privacy-related questions, write to <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Developed by Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Back to app</a></div>
+</div>
+
+<div class="lang-block" id="lang-fr">
+<h1>Politique de Confidentialité</h1>
+<div class="subtitle">TiroLog · Dernière mise à jour : avril 2026</div>
+<h2>1. Qui sommes-nous</h2>
+<p>TiroLog est une application web progressive (PWA) pour enregistrer des sessions de tir sportif, développée par <strong>Sapemaib</strong>. Contactez-nous à <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Données collectées</h2>
+<p>TiroLog collecte uniquement les données saisies par l'utilisateur :</p>
+<ul>
+  <li>Sessions de tir : date, heure, score, modalité et notes optionnelles.</li>
+  <li>Modalités de tir créées par l'utilisateur.</li>
+  <li>Achats de matériel lié au tir sportif.</li>
+</ul>
+<p>L'application ne collecte <strong>pas</strong> de données personnelles d'identification, de données de localisation, ni d'informations sur l'appareil au-delà du nécessaire au fonctionnement technique.</p>
+<h2>3. Où les données sont stockées</h2>
+<p>Toutes les données sont stockées <strong>localement sur l'appareil de l'utilisateur</strong> via IndexedDB. Elles ne sont jamais envoyées à un serveur appartenant à Sapemaib.</p>
+<p>En option, l'utilisateur peut activer la sauvegarde automatique sur <strong>Google Drive</strong>. Les données sont alors enregistrées dans le dossier privé de l'application dans le compte Google Drive de l'utilisateur (<code>appDataFolder</code>). Sapemaib n'a à aucun moment accès à ces fichiers.</p>
+<h2>4. Utilisation de Google Drive</h2>
+<p>Si l'utilisateur active l'intégration Google Drive, TiroLog demande le scope <code>https://www.googleapis.com/auth/drive.file</code>, qui permet uniquement de créer et mettre à jour les fichiers créés par l'application. L'utilisation des données est conforme à la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Politique d'utilisation des données des services API Google</a>.</p>
+<h2>5. Partage avec des tiers</h2>
+<p>TiroLog <strong>ne vend, ne loue ni ne partage</strong> aucune donnée utilisateur avec des tiers.</p>
+<h2>6. Cookies et traçage</h2>
+<p>TiroLog n'utilise pas de cookies ni de technologies de traçage. Aucun outil d'analyse ni de publicité n'est intégré.</p>
+<h2>7. Droits de l'utilisateur</h2>
+<ul>
+  <li><strong>Exporter :</strong> depuis l'onglet "Sauvegarde", vous pouvez télécharger toutes vos données en JSON.</li>
+  <li><strong>Supprimer :</strong> effacer l'application du navigateur supprime toutes les données locales.</li>
+  <li><strong>Déconnecter Drive :</strong> depuis l'onglet "Sauvegarde", vous pouvez révoquer l'accès Google Drive.</li>
+</ul>
+<h2>8. Modifications de cette politique</h2>
+<p>En cas de changements importants, la date d'en-tête sera mise à jour et les utilisateurs seront informés via l'application si possible.</p>
+<h2>9. Contact</h2>
+<p>Pour toute question relative à la confidentialité, écrivez à <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Développé par Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Retour à l'app</a></div>
+</div>
+
+<div class="lang-block" id="lang-eu">
+<h1>Pribatasun Politika</h1>
+<div class="subtitle">TiroLog · Azken eguneraketa: 2026ko apirila</div>
+<h2>1. Nor garen</h2>
+<p>TiroLog kirol tiroko saioak erregistratzeko aplikazio web progresibo (PWA) bat da, <strong>Sapemaib</strong>-ek garaturikoa. Jar zaitez gurekin harremanetan helbide honetan: <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Aplikazioak biltzen dituen datuak</h2>
+<p>TiroLog-ek erabiltzaileak berak sartutako datuak bakarrik biltzen ditu:</p>
+<ul>
+  <li>Tiro saioak: data, ordua, puntuazioa, modalitatea eta ohar aukerako.</li>
+  <li>Erabiltzaileak sortutako tiro-modalitateak.</li>
+  <li>Tiro-materialaren erosketa erregistroak.</li>
+</ul>
+<p>Aplikazioak <strong>ez ditu biltzen</strong> identifikazio-datu pertsonalik, kokapen-daturik ezta gailuaren informaziorik ere, PWAren funtzionamendu teknikorako beharrezkoa ez dena.</p>
+<h2>3. Non gordetzen diren datuak</h2>
+<p>Datu guztiak <strong>erabiltzailearen gailuan bertan gordetzen dira</strong> IndexedDB bidez. Datuak ez dira inoiz Sapemaib-en zerbitzarietara bidaltzen.</p>
+<p>Aukeran, erabiltzaileak <strong>Google Drive</strong>-n babeskopia automatikoa aktibatu dezake. Kasu horretan, datuak erabiltzailearen Google Drive kontuko aplikazioaren karpeta pribatuan gordetzen dira (<code>appDataFolder</code>). Sapemaib-ek ez du inoiz fitxategi horietara sarbiderik.</p>
+<h2>4. Google Drive erabilera</h2>
+<p>Google Drive integrazioa aktibatzen bada, TiroLog-ek <code>https://www.googleapis.com/auth/drive.file</code> eskopea eskatzen du. <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google API Zerbitzuen Erabiltzaile Datuen Politika</a>ra egokitzen da.</p>
+<h2>5. Datuen partekatzea hirugarrenekin</h2>
+<p>TiroLog-ek <strong>ez du saltzen, alokatu edo partekatzen</strong> erabiltzailearen daturik hirugarrenekin.</p>
+<h2>6. Cookieak eta jarraipen-teknologiak</h2>
+<p>TiroLog-ek ez du cookierik edo jarraipen-teknologiarik erabiltzen. Ez du analitika- edo publizitate-tresnenik integratzen.</p>
+<h2>7. Erabiltzailearen eskubideak</h2>
+<ul>
+  <li><strong>Esportatu:</strong> "Babeskopia" fitxatik zure datu guztiak JSON formatuan deskargatu ditzakezu.</li>
+  <li><strong>Ezabatu:</strong> nabigatzailetik aplikazioa ezabatzeak datu lokala guztiak ezabatzen ditu.</li>
+  <li><strong>Drive deskonektatu:</strong> "Babeskopia" fitxatik Google Drive sarbidea berreska dezakezu.</li>
+</ul>
+<h2>8. Politika aldaketak</h2>
+<p>Aldaketa garrantzitsuak egonez gero, goiburuaren data eguneratuko da eta erabiltzaileei aplikazioaren bidez jakinaraziko zaie ahal denean.</p>
+<h2>9. Kontaktua</h2>
+<p>Pribatasunarekin lotutako galderetarako, idatzi <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a> helbidera.</p>
+<div class="footer">TiroLog · Sapemaib-ek garatua · <a href="https://sapemaib-source.github.io/tirolog/">Aplikaziora itzuli</a></div>
+</div>
+
+<div class="lang-block" id="lang-ca">
+<h1>Política de Privadesa</h1>
+<div class="subtitle">TiroLog · Darrera actualització: abril 2026</div>
+<h2>1. Qui som</h2>
+<p>TiroLog és una aplicació web progressiva (PWA) per al registre de sessions de tir esportiu, desenvolupada per <strong>Sapemaib</strong>. Podeu contactar-nos a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Quines dades recull l'aplicació</h2>
+<p>TiroLog recull únicament les dades que l'usuari introdueix:</p>
+<ul>
+  <li>Sessions de tir: data, hora, puntuació, modalitat i notes opcionals.</li>
+  <li>Modalitats de tir creades per l'usuari.</li>
+  <li>Registres de compres de material relacionat amb el tir.</li>
+</ul>
+<p>L'aplicació <strong>no recull</strong> dades personals d'identificació, dades de localització ni informació del dispositiu més enllà del necessari per al funcionament tècnic de la PWA.</p>
+<h2>3. On s'emmagatzemen les dades</h2>
+<p>Totes les dades s'emmagatzemen <strong>localment al dispositiu de l'usuari</strong> mitjançant IndexedDB. Les dades no s'envien a cap servidor de Sapemaib.</p>
+<p>Opcionalment, l'usuari pot activar la còpia de seguretat automàtica a <strong>Google Drive</strong>. Les dades es guarden a la carpeta privada de l'app dins del compte de Google Drive de l'usuari (<code>appDataFolder</code>). Sapemaib no té accés a aquests fitxers en cap moment.</p>
+<h2>4. Ús de Google Drive</h2>
+<p>Si s'activa la integració amb Google Drive, TiroLog sol·licita accés a l'scope <code>https://www.googleapis.com/auth/drive.file</code>. Compleix amb la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Política de dades d'usuari dels serveis d'API de Google</a>.</p>
+<h2>5. Compartició de dades amb tercers</h2>
+<p>TiroLog <strong>no ven, lloga ni comparteix</strong> cap dada de l'usuari amb tercers.</p>
+<h2>6. Galetes i rastreig</h2>
+<p>TiroLog no utilitza galetes ni tecnologies de rastreig. No integra eines d'analítica ni publicitat.</p>
+<h2>7. Drets de l'usuari</h2>
+<ul>
+  <li><strong>Exportar:</strong> des de la pestanya "Còpia de seguretat" podeu descarregar les vostres dades en JSON.</li>
+  <li><strong>Eliminar:</strong> esborrar l'aplicació del navegador elimina totes les dades locals.</li>
+  <li><strong>Desconnectar Drive:</strong> des de la pestanya "Còpia de seguretat" podeu revocar l'accés a Google Drive.</li>
+</ul>
+<h2>8. Canvis en aquesta política</h2>
+<p>Si es fan canvis rellevants, s'actualitzarà la data de la capçalera i es notificarà als usuaris a través de l'aplicació quan sigui possible.</p>
+<h2>9. Contacte</h2>
+<p>Per a qualsevol consulta relacionada amb la privadesa, escriviu a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Desenvolupat per Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Tornar a l'app</a></div>
+</div>
+
+<div class="lang-block" id="lang-gl">
+<h1>Política de Privacidade</h1>
+<div class="subtitle">TiroLog · Última actualización: abril 2026</div>
+<h2>1. Quen somos</h2>
+<p>TiroLog é unha aplicación web progresiva (PWA) para o rexistro de sesións de tiro deportivo, desenvolvida por <strong>Sapemaib</strong>. Podes contactar connosco en <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Que datos recolle a aplicación</h2>
+<p>TiroLog recolle unicamente os datos que o propio usuario introduce:</p>
+<ul>
+  <li>Sesións de tiro: data, hora, puntuación, modalidade e notas opcionais.</li>
+  <li>Modalidades de tiro creadas polo usuario.</li>
+  <li>Rexistros de compras de material relacionado co tiro.</li>
+</ul>
+<p>A aplicación <strong>non recolle</strong> datos persoais de identificación, datos de localización nin información do dispositivo máis alá do necesario para o funcionamento técnico da PWA.</p>
+<h2>3. Onde se almacenan os datos</h2>
+<p>Todos os datos almacénanse <strong>localmente no dispositivo do usuario</strong> mediante IndexedDB. Os datos non se envían a ningún servidor de Sapemaib.</p>
+<p>De xeito opcional, o usuario pode activar a copia de seguridade automática en <strong>Google Drive</strong>. Os datos gárdanse na cartafol privada da app dentro da conta de Google Drive do propio usuario (<code>appDataFolder</code>). Sapemaib non ten acceso a eses ficheiros en ningún momento.</p>
+<h2>4. Uso de Google Drive</h2>
+<p>Se o usuario activa a integración con Google Drive, TiroLog solicita acceso ao scope <code>https://www.googleapis.com/auth/drive.file</code>. O uso dos datos cumpre coa <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Política de datos de usuario dos servizos de API de Google</a>.</p>
+<h2>5. Compartición de datos con terceiros</h2>
+<p>TiroLog <strong>non vende, aluga nin comparte</strong> ningún dato do usuario con terceiros.</p>
+<h2>6. Cookies e rastrexo</h2>
+<p>TiroLog non utiliza cookies nin tecnoloxías de rastrexo. Non integra ferramentas de analítica nin publicidade.</p>
+<h2>7. Dereitos do usuario</h2>
+<ul>
+  <li><strong>Exportar:</strong> dende a lapela "Copia de seguridade" podes descargar todos os teus datos en JSON.</li>
+  <li><strong>Eliminar:</strong> borrar a aplicación do navegador elimina todos os datos locais.</li>
+  <li><strong>Desconectar Drive:</strong> dende a lapela "Copia de seguridade" podes revogar o acceso a Google Drive.</li>
+</ul>
+<h2>8. Cambios nesta política</h2>
+<p>Se se realizan cambios relevantes, actualizarase a data da cabeceira e notificarase aos usuarios a través da propia aplicación cando sexa posible.</p>
+<h2>9. Contacto</h2>
+<p>Para calquera consulta relacionada coa privacidade, escríbenos a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Desenvolvido por Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Volver á app</a></div>
+</div>
+
+<div class="lang-block" id="lang-de">
+<h1>Datenschutzerklärung</h1>
+<div class="subtitle">TiroLog · Zuletzt aktualisiert: April 2026</div>
+<h2>1. Wer wir sind</h2>
+<p>TiroLog ist eine Progressive Web App (PWA) zur Aufzeichnung von Sportschieß-Sessions, entwickelt von <strong>Sapemaib</strong>. Kontakt: <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Welche Daten die App erfasst</h2>
+<p>TiroLog erfasst ausschließlich Daten, die der Nutzer selbst eingibt:</p>
+<ul>
+  <li>Schieß-Sessions: Datum, Uhrzeit, Ergebnis, Disziplin und optionale Notizen.</li>
+  <li>Vom Nutzer erstellte Schieß-Disziplinen.</li>
+  <li>Kaufaufzeichnungen für schießsportbezogenes Material.</li>
+</ul>
+<p>Die App erfasst <strong>keine</strong> personenbezogenen Identifikationsdaten, Standortdaten oder Geräteinformationen, die über das für den technischen Betrieb der PWA Notwendige hinausgehen.</p>
+<h2>3. Wo die Daten gespeichert werden</h2>
+<p>Alle Daten werden <strong>lokal auf dem Gerät des Nutzers</strong> per IndexedDB gespeichert. Die Daten werden nicht an Server von Sapemaib übertragen.</p>
+<p>Optional kann der Nutzer die automatische Sicherung in <strong>Google Drive</strong> aktivieren. In diesem Fall werden die Daten im privaten App-Ordner innerhalb des Google-Drive-Kontos des Nutzers gespeichert (<code>appDataFolder</code>). Sapemaib hat zu keinem Zeitpunkt Zugriff auf diese Dateien.</p>
+<h2>4. Nutzung von Google Drive</h2>
+<p>Bei aktivierter Google-Drive-Integration fordert TiroLog den Scope <code>https://www.googleapis.com/auth/drive.file</code> an. Die Datennutzung entspricht der <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Nutzerdatenrichtlinie für Google-API-Dienste</a>.</p>
+<h2>5. Datenweitergabe an Dritte</h2>
+<p>TiroLog <strong>verkauft, vermietet oder teilt</strong> keine Nutzerdaten mit Dritten.</p>
+<h2>6. Cookies und Tracking</h2>
+<p>TiroLog verwendet keine Cookies oder Tracking-Technologien. Es sind keine Analyse- oder Werbewerkzeuge integriert.</p>
+<h2>7. Rechte des Nutzers</h2>
+<ul>
+  <li><strong>Exportieren:</strong> Im Tab "Backup" können alle Daten als JSON heruntergeladen werden.</li>
+  <li><strong>Löschen:</strong> Das Löschen der App aus dem Browser entfernt alle lokalen Daten.</li>
+  <li><strong>Drive trennen:</strong> Im Tab "Backup" kann der Google-Drive-Zugriff widerrufen werden.</li>
+</ul>
+<h2>8. Änderungen dieser Richtlinie</h2>
+<p>Bei relevanten Änderungen wird das Datum in der Kopfzeile aktualisiert und Nutzer werden über die App benachrichtigt, wenn möglich.</p>
+<h2>9. Kontakt</h2>
+<p>Bei Fragen zum Datenschutz wenden Sie sich an <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Entwickelt von Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Zurück zur App</a></div>
+</div>
+
+<div class="lang-block" id="lang-it">
+<h1>Informativa sulla Privacy</h1>
+<div class="subtitle">TiroLog · Ultimo aggiornamento: aprile 2026</div>
+<h2>1. Chi siamo</h2>
+<p>TiroLog è un'applicazione web progressiva (PWA) per registrare sessioni di tiro sportivo, sviluppata da <strong>Sapemaib</strong>. Contattaci a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Dati raccolti dall'applicazione</h2>
+<p>TiroLog raccoglie esclusivamente i dati inseriti dall'utente:</p>
+<ul>
+  <li>Sessioni di tiro: data, ora, punteggio, modalità e note opzionali.</li>
+  <li>Modalità di tiro create dall'utente.</li>
+  <li>Registrazioni degli acquisti di materiale relativo al tiro.</li>
+</ul>
+<p>L'applicazione <strong>non raccoglie</strong> dati personali identificativi, dati di posizione né informazioni sul dispositivo al di là di quanto necessario per il funzionamento tecnico della PWA.</p>
+<h2>3. Dove vengono archiviati i dati</h2>
+<p>Tutti i dati sono archiviati <strong>localmente sul dispositivo dell'utente</strong> tramite IndexedDB. I dati non vengono inviati a nessun server di proprietà di Sapemaib.</p>
+<p>Opzionalmente, l'utente può attivare il backup automatico su <strong>Google Drive</strong>. I dati vengono salvati nella cartella privata dell'app all'interno dell'account Google Drive dell'utente (<code>appDataFolder</code>). Sapemaib non ha accesso a questi file in nessun momento.</p>
+<h2>4. Utilizzo di Google Drive</h2>
+<p>Se l'utente attiva l'integrazione con Google Drive, TiroLog richiede l'accesso allo scope <code>https://www.googleapis.com/auth/drive.file</code>. L'utilizzo dei dati è conforme alla <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Norme per i dati degli utenti dei servizi API di Google</a>.</p>
+<h2>5. Condivisione dei dati con terzi</h2>
+<p>TiroLog <strong>non vende, affitta né condivide</strong> alcun dato dell'utente con terze parti.</p>
+<h2>6. Cookie e tracciamento</h2>
+<p>TiroLog non utilizza cookie né tecnologie di tracciamento. Non integra strumenti di analisi o pubblicità.</p>
+<h2>7. Diritti dell'utente</h2>
+<ul>
+  <li><strong>Esportare:</strong> dalla scheda "Backup" è possibile scaricare tutti i dati in formato JSON.</li>
+  <li><strong>Eliminare:</strong> rimuovere l'app dal browser elimina tutti i dati locali.</li>
+  <li><strong>Disconnettere Drive:</strong> dalla scheda "Backup" è possibile revocare l'accesso a Google Drive.</li>
+</ul>
+<h2>8. Modifiche a questa informativa</h2>
+<p>In caso di modifiche rilevanti, la data dell'intestazione verrà aggiornata e gli utenti saranno informati tramite l'app quando possibile.</p>
+<h2>9. Contatto</h2>
+<p>Per qualsiasi domanda relativa alla privacy, scrivi a <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Sviluppato da Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Torna all'app</a></div>
+</div>
+
+<div class="lang-block" id="lang-pt">
+<h1>Política de Privacidade</h1>
+<div class="subtitle">TiroLog · Última atualização: abril 2026</div>
+<h2>1. Quem somos</h2>
+<p>TiroLog é uma aplicação web progressiva (PWA) para registo de sessões de tiro desportivo, desenvolvida pela <strong>Sapemaib</strong>. Contacte-nos em <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<h2>2. Que dados a aplicação recolhe</h2>
+<p>O TiroLog recolhe apenas os dados introduzidos pelo próprio utilizador:</p>
+<ul>
+  <li>Sessões de tiro: data, hora, pontuação, modalidade e notas opcionais.</li>
+  <li>Modalidades de tiro criadas pelo utilizador.</li>
+  <li>Registos de compras de material relacionado com o tiro.</li>
+</ul>
+<p>A aplicação <strong>não recolhe</strong> dados pessoais de identificação, dados de localização nem informação do dispositivo para além do necessário para o funcionamento técnico da PWA.</p>
+<h2>3. Onde os dados são armazenados</h2>
+<p>Todos os dados são armazenados <strong>localmente no dispositivo do utilizador</strong> através de IndexedDB. Os dados não são enviados para nenhum servidor da Sapemaib.</p>
+<p>Opcionalmente, o utilizador pode ativar a cópia de segurança automática no <strong>Google Drive</strong>. Os dados são guardados na pasta privada da app dentro da conta Google Drive do próprio utilizador (<code>appDataFolder</code>). A Sapemaib não tem acesso a esses ficheiros em momento algum.</p>
+<h2>4. Utilização do Google Drive</h2>
+<p>Se o utilizador ativar a integração com Google Drive, o TiroLog solicita acesso ao scope <code>https://www.googleapis.com/auth/drive.file</code>. A utilização dos dados cumpre a <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Política de Dados do Utilizador dos Serviços de API do Google</a>.</p>
+<h2>5. Partilha de dados com terceiros</h2>
+<p>O TiroLog <strong>não vende, aluga nem partilha</strong> quaisquer dados do utilizador com terceiros.</p>
+<h2>6. Cookies e rastreamento</h2>
+<p>O TiroLog não utiliza cookies nem tecnologias de rastreamento. Não integra ferramentas de análise nem publicidade.</p>
+<h2>7. Direitos do utilizador</h2>
+<ul>
+  <li><strong>Exportar:</strong> a partir do separador "Backup" pode descarregar todos os seus dados em JSON.</li>
+  <li><strong>Eliminar:</strong> remover a aplicação do browser elimina todos os dados locais.</li>
+  <li><strong>Desligar Drive:</strong> a partir do separador "Backup" pode revogar o acesso ao Google Drive.</li>
+</ul>
+<h2>8. Alterações a esta política</h2>
+<p>Em caso de alterações relevantes, a data do cabeçalho será atualizada e os utilizadores serão notificados através da app quando possível.</p>
+<h2>9. Contacto</h2>
+<p>Para qualquer questão relacionada com a privacidade, escreva para <a href="mailto:info@sapemaib.dev">info@sapemaib.dev</a>.</p>
+<div class="footer">TiroLog · Desenvolvido pela Sapemaib · <a href="https://sapemaib-source.github.io/tirolog/">Voltar à app</a></div>
+</div>
+
+<script>
+  var lang = (new URLSearchParams(location.search).get('lang') || 'es').replace(/[^a-z]/g,'');
+  var el = document.getElementById('lang-' + lang) || document.getElementById('lang-es');
+  el.classList.add('active');
+  document.documentElement.lang = lang;
+</script>
+</body>
+</html>
