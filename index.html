@@ -170,13 +170,9 @@
     .nav-logo .logo-icon {
       width: 34px;
       height: 34px;
-      background: var(--gold);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
       flex-shrink: 0;
+      overflow: hidden;
     }
     .nav-logo span.accent { color: var(--gold); }
 
@@ -877,7 +873,7 @@
     <div class="container">
       <div class="nav-inner">
         <a href="#" class="nav-logo">
-          <div class="logo-icon">🎯</div>
+          <img class="logo-icon" src="icono.svg" alt="TiroLog" />
           Tiro<span class="accent">Log</span>
         </a>
         <div class="nav-actions">
@@ -911,8 +907,9 @@
             TiroLog es la aplicación gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Tiro de precisión y tiro al plato. Sin servidores, sin publicidad. Todo en tu móvil.
           </p>
           <div class="hero-actions">
-            <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero_cta_install">
-              🎯 Instalar gratis
+            <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener">
+              <img src="icono.svg" alt="" aria-hidden="true" width="20" height="20" style="border-radius:4px;flex-shrink:0;" />
+              <span data-i18n="hero_cta_install">Instalar gratis</span>
             </a>
             <a href="#features" class="btn btn-outline" data-i18n="hero_cta_more">Ver funciones</a>
           </div>
@@ -1001,7 +998,7 @@
         </div>
 
         <div class="feat-card reveal" style="transition-delay:.1s">
-          <div class="feat-icon">🎯</div>
+          <div class="feat-icon">🔢</div>
           <div class="feat-title" data-i18n="f3_title">Contador de series</div>
           <p class="feat-desc" data-i18n="f3_desc">Modo tiro libre con contador de series integrado para sesiones de práctica rápidas.</p>
         </div>
@@ -1182,8 +1179,9 @@
         <h2 class="section-title" data-i18n="cta_title">Registra tu próxima sesión con TiroLog</h2>
         <p class="section-subtitle" data-i18n="cta_desc">Gratis. Sin publicidad. Sin servidores. Instala la app directamente desde el navegador.</p>
         <div class="cta-actions">
-          <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="cta_btn">
-            🎯 Instalar TiroLog gratis
+          <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener">
+            <img src="icono.svg" alt="" aria-hidden="true" width="20" height="20" style="border-radius:4px;flex-shrink:0;" />
+            <span data-i18n="cta_btn">Instalar TiroLog gratis</span>
           </a>
         </div>
         <p class="cta-note" data-i18n="cta_note">
@@ -1233,7 +1231,7 @@
         hero_title_2:   'Tus datos.',
         hero_title_3:   'Tu progreso.',
         hero_desc:      'TiroLog es la aplicación gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Tiro de precisión y tiro al plato. Sin servidores, sin publicidad. Todo en tu móvil.',
-        hero_cta_install:'🎯 Instalar gratis',
+        hero_cta_install:'Instalar gratis',
         hero_cta_more:  'Ver funciones',
         meta_free:      'Sin coste. Sin publicidad.',
         meta_private:   '100% privado',
@@ -1280,7 +1278,7 @@
         cta_label:      'Empieza hoy',
         cta_title:      'Registra tu próxima sesión con TiroLog',
         cta_desc:       'Gratis. Sin publicidad. Sin servidores. Instala la app directamente desde el navegador.',
-        cta_btn:        '🎯 Instalar TiroLog gratis',
+        cta_btn:        'Instalar TiroLog gratis',
         cta_note:       '<strong>PWA</strong> — no necesitas ir a la App Store. Abre el enlace y pulsa <strong>"Añadir a pantalla de inicio"</strong>.',
         badge_android:  'Android · Chrome',
         badge_ios:      'iOS · Safari',
@@ -1295,7 +1293,7 @@
         hero_title_2:   'Your data.',
         hero_title_3:   'Your progress.',
         hero_desc:      'TiroLog is the free app to log and analyze your sport shooting training sessions. Precision shooting and clay shooting. No servers, no ads. Everything on your phone.',
-        hero_cta_install:'🎯 Install free',
+        hero_cta_install:'Install free',
         hero_cta_more:  'See features',
         meta_free:      'No cost. No ads.',
         meta_private:   '100% private',
@@ -1342,7 +1340,7 @@
         cta_label:      'Start today',
         cta_title:      'Log your next session with TiroLog',
         cta_desc:       'Free. No ads. No servers. Install the app straight from your browser.',
-        cta_btn:        '🎯 Install TiroLog free',
+        cta_btn:        'Install TiroLog free',
         cta_note:       '<strong>PWA</strong> — no App Store needed. Open the link and tap <strong>"Add to Home Screen"</strong>.',
         badge_android:  'Android · Chrome',
         badge_ios:      'iOS · Safari',
