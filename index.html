@@ -1,14 +1,1420 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio en Construcción</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TiroLog — Registro y análisis de entrenamientos de tiro deportivo</title>
+  <meta name="description" content="TiroLog es la PWA gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Sin publicidad, sin servidores. Tus datos en tu móvil." />
+  <meta property="og:title" content="TiroLog — Tiro deportivo. Tu entrenamiento, tus datos." />
+  <meta property="og:description" content="App gratuita para tiro de precisión y tiro al plato. Funciona offline, 9 idiomas, exporta PDF." />
+  <meta property="og:image" content="img/og-cover.jpg" />
+  <meta name="theme-color" content="#0d0d0d" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-M22FHS87');</script>
+  <!-- End Google Tag Manager -->
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #1a1a1a;
+      --surface2:  #222222;
+      --gold:      #c8a84b;
+      --gold-dim:  #a8893a;
+      --gold-glow: rgba(200,168,75,.18);
+      --text:      #f0ede8;
+      --text-dim:  #9e9a94;
+      --border:    rgba(200,168,75,.18);
+      --radius:    12px;
+      --transition: .25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      letter-spacing: .02em;
+      line-height: 1.15;
+    }
+
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: #e0bd5a; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── Utilities ─────────────────────────────────────────────────────────── */
+    .container {
+      width: min(1160px, 100% - 2.5rem);
+      margin-inline: auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: .25rem .75rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      margin-bottom: .75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      max-width: 56ch;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: .8rem 1.75rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #0d0d0d;
+    }
+    .btn-primary:hover {
+      background: #e0bd5a;
+      color: #0d0d0d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,168,75,.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Navbar ─────────────────────────────────────────────────────────────── */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: .9rem 0;
+      transition: var(--transition);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .nav-logo .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .nav-logo span.accent { color: var(--gold); }
+
+    .nav-actions { display: flex; align-items: center; gap: .75rem; }
+
+    /* Language switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: .8rem;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: 'Oswald', sans-serif;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .4rem .65rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: #0d0d0d;
+    }
+    .lang-btn:not(.active):hover { background: var(--surface2); color: var(--text); }
+
+    .nav-cta { font-size: .85rem; padding: .55rem 1.2rem; }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      padding: 6rem 0 5rem;
+      overflow: hidden;
+    }
+
+    /* Geometric background accent */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -180px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(200,168,75,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: 1.25rem;
+    }
+    .badge-free {
+      background: rgba(200,168,75,.15);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-family: 'Oswald', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .2rem .65rem;
+      border-radius: 100px;
+    }
+    .badge-pwa {
+      background: var(--surface2);
+      color: var(--text-dim);
+      font-family: 'Oswald', sans-serif;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .65rem;
+      border-radius: 100px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
+      margin-bottom: 1.25rem;
+      line-height: 1.08;
+    }
+    .hero-title .line-gold { color: var(--gold); display: block; }
+
+    .hero-desc {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 50ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .85rem;
+      color: var(--text-dim);
+    }
+    .hero-meta-item .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Phone mockup area */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .phone-mockup {
+      position: relative;
+      width: 280px;
+    }
+    .phone-shell {
+      background: var(--surface);
+      border: 2px solid #333;
+      border-radius: 40px;
+      padding: 16px;
+      box-shadow:
+        0 0 0 1px #111,
+        0 40px 80px rgba(0,0,0,.7),
+        0 0 60px rgba(200,168,75,.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .phone-notch {
+      width: 90px;
+      height: 24px;
+      background: #0d0d0d;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto 10px;
+    }
+
+    /* Placeholder screenshot inside phone */
+    .phone-screen {
+      background: #111;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 9/19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #2a2a2a;
+      position: relative;
+    }
+
+    .phone-glow {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 120px;
+      background: radial-gradient(ellipse, rgba(200,168,75,.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Floating badge on phone */
+    .phone-badge {
+      position: absolute;
+      right: -1.5rem;
+      top: 3rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .5rem .75rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .75rem;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: .05em;
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+    }
+    .phone-badge .badge-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── Trusted-by / highlights bar ───────────────────────────────────────── */
+    #highlights {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      background: var(--surface);
+    }
+    .highlights-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .5rem 2rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+    .highlight-item + .highlight-item {
+      border-left: 1px solid var(--border);
+    }
+    .highlight-item .hi-icon { font-size: 1.1rem; }
+    .highlight-item strong { color: var(--text); }
+
+    /* ─── Features ───────────────────────────────────────────────────────────── */
+    #features {
+      padding: 5rem 0;
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .features-header .section-subtitle { margin-inline: auto; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .feat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-glow), transparent 60%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .feat-card:hover { border-color: rgba(200,168,75,.4); transform: translateY(-3px); }
+    .feat-card:hover::before { opacity: 1; }
+
+    .feat-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(200,168,75,.1);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .feat-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+      color: var(--text);
+    }
+
+    .feat-desc {
+      font-size: .9rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Featured (wide) card */
+    .feat-card.wide {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 0 1.25rem;
+    }
+    .feat-card.wide .feat-icon { margin-bottom: 0; }
+    .feat-card.wide .feat-content {}
+
+    /* ─── Privacy section ────────────────────────────────────────────────────── */
+    #privacy {
+      padding: 5rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .privacy-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .privacy-diagram {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 360px;
+    }
+    .diagram-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .diagram-row:last-child { margin-bottom: 0; }
+    .diagram-node {
+      background: var(--surface2);
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: .75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      flex: 1;
+    }
+    .diagram-node.highlight-node {
+      border-color: var(--gold);
+      background: rgba(200,168,75,.08);
+      color: var(--gold);
+    }
+    .diagram-arrow {
+      font-size: 1.2rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .diagram-cross {
+      font-size: 1.2rem;
+      color: #ef4444;
+      flex-shrink: 0;
+    }
+    .diagram-label {
+      font-size: .75rem;
+      color: var(--text-dim);
+      margin-top: -.5rem;
+      margin-bottom: 1rem;
+      padding-left: .25rem;
+    }
+
+    .privacy-points {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .privacy-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      font-size: .95rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+    .privacy-points li .check {
+      color: var(--gold);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* ─── Screenshots ────────────────────────────────────────────────────────── */
+    #screenshots {
+      padding: 5rem 0;
+    }
+    .screenshots-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .screens-scroll {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+      /* center items when they fit */
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .screens-scroll::-webkit-scrollbar { height: 4px; }
+    .screens-scroll::-webkit-scrollbar-track { background: transparent; }
+    .screens-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .screen-item {
+      flex-shrink: 0;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .screen-frame {
+      background: var(--surface);
+      border: 1px solid #333;
+      border-radius: 28px;
+      padding: 10px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    }
+    .screen-inner {
+      background: #111;
+      border-radius: 20px;
+      aspect-ratio: 9/19.5;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #1e1e1e;
+    }
+
+    .screen-caption {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--text-dim);
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Languages ──────────────────────────────────────────────────────────── */
+    #languages {
+      padding: 5rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .languages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .lang-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: 1.75rem;
+    }
+    .lang-pill {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .4rem .9rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+    .lang-pill:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-pill .flag { font-size: 1rem; }
+
+    .languages-visual {
+      display: flex;
+      justify-content: center;
+    }
+    .globe-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 320px;
+      width: 100%;
+    }
+    .globe-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .globe-stat {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .globe-stat-label {
+      font-size: .85rem;
+      color: var(--text-dim);
+      margin-top: .25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── CTA section ────────────────────────────────────────────────────────── */
+    #cta {
+      padding: 5.5rem 0;
+    }
+
+    .cta-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(200,168,75,.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-box .section-label { margin-bottom: 1.25rem; }
+    .cta-box .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: .75rem; }
+    .cta-box .section-subtitle { margin-inline: auto; margin-bottom: 2rem; }
+
+    .cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-note {
+      font-size: .82rem;
+      color: var(--text-dim);
+    }
+    .cta-note strong { color: var(--gold); }
+
+    /* Store badges row */
+    .store-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 2rem;
+    }
+    .store-badge {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--bg);
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: .55rem 1rem;
+      font-size: .78rem;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+    .store-badge:hover { border-color: var(--gold); color: var(--gold); }
+    .store-badge .sb-icon { font-size: 1rem; }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────────── */
+    #footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      color: var(--text-dim);
+      font-size: .85rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--text-dim);
+      font-size: .82rem;
+      transition: var(--transition);
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: .78rem; }
+
+    /* ─── Scroll reveal ──────────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .privacy-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .languages-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .feat-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
+      .feat-card.wide .feat-icon { margin-bottom: 1rem; }
+    }
+
+    @media (max-width: 600px) {
+      .highlight-item { padding: .5rem 1rem; font-size: .78rem; }
+      .cta-box { padding: 2.5rem 1.5rem; }
+      .nav-cta { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body style="text-align: center; padding: 100px; font-family: sans-serif;">
-    <h1 style="font-size: 50px;">🚧</h1>
-    <h1>Sitio en Construcción</h1>
-    <p>Estamos trabajando para mejorar nuestra web.</p>
-    <p>¡Disculpe las molestias!</p>
+
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M22FHS87"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="logo-icon">🎯</div>
+          Tiro<span class="accent">Log</span>
+        </a>
+        <div class="nav-actions">
+          <div class="lang-switcher" role="group" aria-label="Idioma">
+            <button class="lang-btn active" data-lang="es" onclick="setLang('es')" aria-pressed="true">ES</button>
+            <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-pressed="false">EN</button>
+          </div>
+          <a href="https://tirolog.app" class="btn btn-primary nav-cta" target="_blank" rel="noopener"
+             data-i18n="nav_cta">Instalar App</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <div class="hero-content reveal">
+          <div class="hero-eyebrow">
+            <span class="badge-free" data-i18n="badge_free">Gratis</span>
+            <span class="badge-pwa">PWA · Offline</span>
+          </div>
+          <h1 class="hero-title">
+            <span data-i18n="hero_title_1">Tu entrenamiento.</span>
+            <span class="line-gold" data-i18n="hero_title_2">Tus datos.</span>
+            <span data-i18n="hero_title_3">Tu progreso.</span>
+          </h1>
+          <p class="hero-desc" data-i18n="hero_desc">
+            TiroLog es la aplicación gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Tiro de precisión y tiro al plato. Sin servidores, sin publicidad. Todo en tu móvil.
+          </p>
+          <div class="hero-actions">
+            <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero_cta_install">
+              🎯 Instalar gratis
+            </a>
+            <a href="#features" class="btn btn-outline" data-i18n="hero_cta_more">Ver funciones</a>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span class="dot"></span>
+              <span data-i18n="meta_free">Sin coste. Sin publicidad.</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="dot"></span>
+              <span data-i18n="meta_private">100% privado</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="dot"></span>
+              <span data-i18n="meta_offline">Funciona offline</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" style="transition-delay:.15s">
+          <div class="phone-mockup">
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <img src="img/screenshot-home.png.jpg" alt="TiroLog pantalla principal"
+                     style="width:100%;height:100%;object-fit:cover" />
+              </div>
+            </div>
+            <div class="phone-glow"></div>
+            <div class="phone-badge">
+              <span class="badge-dot"></span>
+              <span data-i18n="phone_badge">Funciona sin conexión</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HIGHLIGHTS BAR ════════════════════════════════════════════════════════ -->
+  <div id="highlights">
+    <div class="container">
+      <div class="highlights-row">
+        <div class="highlight-item">
+          <span class="hi-icon">🆓</span>
+          <span data-i18n="hl_free"><strong>100% gratuita</strong> · Sin suscripción</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🔒</span>
+          <span data-i18n="hl_private"><strong>Sin servidores</strong> · Datos locales</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🌐</span>
+          <span data-i18n="hl_langs"><strong>9 idiomas</strong> disponibles</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">📲</span>
+          <span data-i18n="hl_pwa"><strong>PWA</strong> · Instala como app nativa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FEATURES ══════════════════════════════════════════════════════════════ -->
+  <section id="features">
+    <div class="container">
+      <div class="features-header reveal">
+        <span class="section-label" data-i18n="feat_label">Funciones</span>
+        <h2 class="section-title" data-i18n="feat_title">Todo lo que necesitas para entrenar mejor</h2>
+        <p class="section-subtitle" data-i18n="feat_subtitle">Diseñado para tiradores de precisión y tiro al plato, desde el primer entrenamiento hasta la competición.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feat-card reveal">
+          <div class="feat-icon">📋</div>
+          <div class="feat-title" data-i18n="f1_title">Registro de sesiones</div>
+          <p class="feat-desc" data-i18n="f1_desc">Anota cada sesión de entrenamiento y competición con todos los detalles: arma, distancia, condiciones y resultados.</p>
+        </div>
+
+        <div class="feat-card reveal" style="transition-delay:.05s">
+          <div class="feat-icon">📊</div>
+          <div class="feat-title" data-i18n="f2_title">Estadísticas y evolución</div>
+          <p class="feat-desc" data-i18n="f2_desc">Visualiza tu progreso a lo largo del tiempo con gráficas claras y métricas que importan.</p>
+        </div>
+
+        <div class="feat-card reveal" style="transition-delay:.1s">
+          <div class="feat-icon">🎯</div>
+          <div class="feat-title" data-i18n="f3_title">Contador de series</div>
+          <p class="feat-desc" data-i18n="f3_desc">Modo tiro libre con contador de series integrado para sesiones de práctica rápidas.</p>
+        </div>
+
+        <div class="feat-card reveal" style="transition-delay:.15s">
+          <div class="feat-icon">📄</div>
+          <div class="feat-title" data-i18n="f4_title">Informes PDF</div>
+          <p class="feat-desc" data-i18n="f4_desc">Exporta informes detallados en PDF para compartir con tu entrenador o conservar tus registros.</p>
+        </div>
+
+        <div class="feat-card reveal" style="transition-delay:.2s">
+          <div class="feat-icon">☁️</div>
+          <div class="feat-title" data-i18n="f5_title">Backup en Google Drive</div>
+          <p class="feat-desc" data-i18n="f5_desc">Copia de seguridad opcional en tu Google Drive personal. Tus datos siguen siendo solo tuyos.</p>
+        </div>
+
+        <div class="feat-card reveal" style="transition-delay:.25s">
+          <div class="feat-icon">🏆</div>
+          <div class="feat-title" data-i18n="f6_title">Tiro de precisión y al plato</div>
+          <p class="feat-desc" data-i18n="f6_desc">Soporte completo para distintas modalidades: tiro de precisión, foso olímpico, skeet, recorrido de caza y más.</p>
+        </div>
+
+        <!-- Wide card -->
+        <div class="feat-card wide reveal" style="transition-delay:.3s">
+          <div class="feat-icon">📵</div>
+          <div class="feat-content">
+            <div class="feat-title" data-i18n="f7_title">Funciona 100% sin conexión</div>
+            <p class="feat-desc" data-i18n="f7_desc">Al ser una PWA instalable, TiroLog funciona aunque no tengas cobertura en el campo de tiro. Instálala una vez y úsala siempre, en cualquier lugar.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRIVACY ═══════════════════════════════════════════════════════════════ -->
+  <section id="privacy">
+    <div class="container">
+      <div class="privacy-grid">
+
+        <div class="reveal">
+          <span class="section-label" data-i18n="priv_label">Privacidad</span>
+          <h2 class="section-title" data-i18n="priv_title">Tus datos son tuyos. Siempre.</h2>
+          <p class="section-subtitle" data-i18n="priv_desc">TiroLog no tiene servidores propios. Toda tu información se guarda en tu dispositivo. Sin cuentas obligatorias, sin rastreo, sin publicidad.</p>
+          <ul class="privacy-points">
+            <li><span class="check">✦</span><span data-i18n="pp1">Los datos nunca salen de tu dispositivo salvo que tú decidas hacer un backup.</span></li>
+            <li><span class="check">✦</span><span data-i18n="pp2">Sin registro ni cuenta obligatoria para usar la app.</span></li>
+            <li><span class="check">✦</span><span data-i18n="pp3">Sin publicidad ni rastreo de comportamiento.</span></li>
+            <li><span class="check">✦</span><span data-i18n="pp4">Backup cifrado y privado en tu propio Google Drive, solo si tú lo activas.</span></li>
+          </ul>
+        </div>
+
+        <div class="privacy-visual reveal" style="transition-delay:.15s">
+          <div class="privacy-diagram">
+            <div class="diagram-row">
+              <div class="diagram-node highlight-node">📱 Tu móvil</div>
+              <div class="diagram-arrow">→</div>
+              <div class="diagram-node">☁️ Google Drive</div>
+            </div>
+            <p class="diagram-label" data-i18n="diag_optional">Backup opcional, cifrado</p>
+            <div class="diagram-row">
+              <div class="diagram-node highlight-node">📱 Tu móvil</div>
+              <div class="diagram-cross">✕</div>
+              <div class="diagram-node" style="color:var(--text-dim)">🖥️ Servidores TiroLog</div>
+            </div>
+            <p class="diagram-label" data-i18n="diag_never">Nunca. No existen.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCREENSHOTS ════════════════════════════════════════════════════════════ -->
+  <section id="screenshots">
+    <div class="container">
+      <div class="screenshots-header reveal">
+        <span class="section-label" data-i18n="sc_label">La app</span>
+        <h2 class="section-title" data-i18n="sc_title">Diseñada para el tirador</h2>
+        <p class="section-subtitle" style="margin-inline:auto;" data-i18n="sc_subtitle">Interfaz clara, rápida y enfocada. Sin distracciones en el campo de tiro.</p>
+      </div>
+
+      <div class="screens-scroll">
+
+        <div class="screen-item reveal">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <img src="img/screenshot-home.png.jpg" alt="TiroLog — Inicio"
+                   style="width:100%;height:100%;object-fit:cover" />
+            </div>
+          </div>
+          <div class="screen-caption" data-i18n="sc1">Inicio</div>
+        </div>
+
+        <div class="screen-item reveal" style="transition-delay:.07s">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <img src="img/screenshot-session.png.jpg" alt="TiroLog — Nueva sesión"
+                   style="width:100%;height:100%;object-fit:cover" />
+            </div>
+          </div>
+          <div class="screen-caption" data-i18n="sc2">Nueva sesión</div>
+        </div>
+
+        <div class="screen-item reveal" style="transition-delay:.14s">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <img src="img/screenshot-stats.png.jpg" alt="TiroLog — Estadísticas"
+                   style="width:100%;height:100%;object-fit:cover" />
+            </div>
+          </div>
+          <div class="screen-caption" data-i18n="sc3">Estadísticas</div>
+        </div>
+
+        <div class="screen-item reveal" style="transition-delay:.21s">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <img src="img/screenshot-counter.png.jpg" alt="TiroLog — Contador"
+                   style="width:100%;height:100%;object-fit:cover" />
+            </div>
+          </div>
+          <div class="screen-caption" data-i18n="sc4">Contador</div>
+        </div>
+
+        <div class="screen-item reveal" style="transition-delay:.28s">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <img src="img/screenshot-pdf.png.jpg" alt="TiroLog — Informe PDF"
+                   style="width:100%;height:100%;object-fit:cover" />
+            </div>
+          </div>
+          <div class="screen-caption" data-i18n="sc5">Informe PDF</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LANGUAGES ══════════════════════════════════════════════════════════════ -->
+  <section id="languages">
+    <div class="container">
+      <div class="languages-grid">
+
+        <div class="reveal">
+          <span class="section-label" data-i18n="lang_label">Idiomas</span>
+          <h2 class="section-title" data-i18n="lang_title">Disponible en 9 idiomas</h2>
+          <p class="section-subtitle" data-i18n="lang_desc">TiroLog habla tu idioma. Con soporte especial para las lenguas cooficiales de España.</p>
+          <div class="lang-pills">
+            <div class="lang-pill"><span class="flag">🇪🇸</span> Español</div>
+            <div class="lang-pill"><span class="flag">🇬🇧</span> English</div>
+            <div class="lang-pill"><span class="flag">🇫🇷</span> Français</div>
+            <div class="lang-pill"><span class="flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-pill"><span class="flag">🇮🇹</span> Italiano</div>
+            <div class="lang-pill"><span class="flag">🇵🇹</span> Português</div>
+            <div class="lang-pill"><span class="flag">🏴󠁥󠁳󠁰󠁶󠁿</span> Euskera</div>
+            <div class="lang-pill"><span class="flag">🏴󠁥󠁳󠁣󠁴󠁿</span> Català</div>
+            <div class="lang-pill"><span class="flag">🏴󠁥󠁳󠁧󠁡󠁿</span> Galego</div>
+          </div>
+        </div>
+
+        <div class="languages-visual reveal" style="transition-delay:.15s">
+          <div class="globe-card">
+            <div class="globe-icon">🌐</div>
+            <div class="globe-stat">9</div>
+            <div class="globe-stat-label" data-i18n="globe_label">idiomas disponibles</div>
+            <p style="font-size:.85rem; color:var(--text-dim); line-height:1.55;" data-i18n="globe_desc">
+              El idioma se detecta automáticamente según tu dispositivo. Puedes cambiarlo en cualquier momento desde los ajustes de la app.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ════════════════════════════════════════════════════════════════════ -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-box reveal">
+        <span class="section-label" data-i18n="cta_label">Empieza hoy</span>
+        <h2 class="section-title" data-i18n="cta_title">Registra tu próxima sesión con TiroLog</h2>
+        <p class="section-subtitle" data-i18n="cta_desc">Gratis. Sin publicidad. Sin servidores. Instala la app directamente desde el navegador.</p>
+        <div class="cta-actions">
+          <a href="https://tirolog.app" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="cta_btn">
+            🎯 Instalar TiroLog gratis
+          </a>
+        </div>
+        <p class="cta-note" data-i18n="cta_note">
+          <strong>PWA</strong> — no necesitas ir a la App Store. Abre el enlace y pulsa <strong>"Añadir a pantalla de inicio"</strong>.
+        </p>
+        <div class="store-badges">
+          <div class="store-badge">
+            <span class="sb-icon">🤖</span>
+            <span data-i18n="badge_android">Android · Chrome</span>
+          </div>
+          <div class="store-badge">
+            <span class="sb-icon"></span>
+            <span data-i18n="badge_ios">iOS · Safari</span>
+          </div>
+          <div class="store-badge">
+            <span class="sb-icon">🖥️</span>
+            <span data-i18n="badge_desktop">Desktop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">Tiro<span>Log</span> · <a href="https://sapemaib.dev" style="color:var(--text-dim);font-weight:400;letter-spacing:.02em;">sapemaib.dev</a></div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="https://tirolog.app" target="_blank" rel="noopener" data-i18n="footer_app">Abrir app</a>
+          <!-- Añadir cuando existan: Privacidad · Contacto -->
+        </nav>
+        <span class="footer-copy" data-i18n="footer_copy">© 2025 Sapemaib. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══ SCRIPTS ════════════════════════════════════════════════════════════════ -->
+  <script>
+    /* ─── i18n ──────────────────────────────────────────────────────────────── */
+    const translations = {
+      es: {
+        nav_cta:        'Instalar App',
+        badge_free:     'Gratis',
+        hero_title_1:   'Tu entrenamiento.',
+        hero_title_2:   'Tus datos.',
+        hero_title_3:   'Tu progreso.',
+        hero_desc:      'TiroLog es la aplicación gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Tiro de precisión y tiro al plato. Sin servidores, sin publicidad. Todo en tu móvil.',
+        hero_cta_install:'🎯 Instalar gratis',
+        hero_cta_more:  'Ver funciones',
+        meta_free:      'Sin coste. Sin publicidad.',
+        meta_private:   '100% privado',
+        meta_offline:   'Funciona offline',
+        phone_badge:    'Funciona sin conexión',
+        hl_free:        '<strong>100% gratuita</strong> · Sin suscripción',
+        hl_private:     '<strong>Sin servidores</strong> · Datos locales',
+        hl_langs:       '<strong>9 idiomas</strong> disponibles',
+        hl_pwa:         '<strong>PWA</strong> · Instala como app nativa',
+        feat_label:     'Funciones',
+        feat_title:     'Todo lo que necesitas para entrenar mejor',
+        feat_subtitle:  'Diseñado para tiradores de precisión y tiro al plato, desde el primer entrenamiento hasta la competición.',
+        f1_title:       'Registro de sesiones',
+        f1_desc:        'Anota cada sesión de entrenamiento y competición con todos los detalles: arma, distancia, condiciones y resultados.',
+        f2_title:       'Estadísticas y evolución',
+        f2_desc:        'Visualiza tu progreso a lo largo del tiempo con gráficas claras y métricas que importan.',
+        f3_title:       'Contador de series',
+        f3_desc:        'Modo tiro libre con contador de series integrado para sesiones de práctica rápidas.',
+        f4_title:       'Informes PDF',
+        f4_desc:        'Exporta informes detallados en PDF para compartir con tu entrenador o conservar tus registros.',
+        f5_title:       'Backup en Google Drive',
+        f5_desc:        'Copia de seguridad opcional en tu Google Drive personal. Tus datos siguen siendo solo tuyos.',
+        f6_title:       'Tiro de precisión y al plato',
+        f6_desc:        'Soporte completo para distintas modalidades: tiro de precisión, foso olímpico, skeet, recorrido de caza y más.',
+        f7_title:       'Funciona 100% sin conexión',
+        f7_desc:        'Al ser una PWA instalable, TiroLog funciona aunque no tengas cobertura en el campo de tiro. Instálala una vez y úsala siempre, en cualquier lugar.',
+        priv_label:     'Privacidad',
+        priv_title:     'Tus datos son tuyos. Siempre.',
+        priv_desc:      'TiroLog no tiene servidores propios. Toda tu información se guarda en tu dispositivo. Sin cuentas obligatorias, sin rastreo, sin publicidad.',
+        pp1:            'Los datos nunca salen de tu dispositivo salvo que tú decidas hacer un backup.',
+        pp2:            'Sin registro ni cuenta obligatoria para usar la app.',
+        pp3:            'Sin publicidad ni rastreo de comportamiento.',
+        pp4:            'Backup cifrado y privado en tu propio Google Drive, solo si tú lo activas.',
+        diag_optional:  'Backup opcional, cifrado',
+        diag_never:     'Nunca. No existen.',
+        sc_label:       'La app',
+        sc_title:       'Diseñada para el tirador',
+        sc_subtitle:    'Interfaz clara, rápida y enfocada. Sin distracciones en el campo de tiro.',
+        sc1: 'Inicio', sc2: 'Nueva sesión', sc3: 'Estadísticas', sc4: 'Contador', sc5: 'Informe PDF',
+        lang_label:     'Idiomas',
+        lang_title:     'Disponible en 9 idiomas',
+        lang_desc:      'TiroLog habla tu idioma. Con soporte especial para las lenguas cooficiales de España.',
+        globe_label:    'idiomas disponibles',
+        globe_desc:     'El idioma se detecta automáticamente según tu dispositivo. Puedes cambiarlo en cualquier momento desde los ajustes de la app.',
+        cta_label:      'Empieza hoy',
+        cta_title:      'Registra tu próxima sesión con TiroLog',
+        cta_desc:       'Gratis. Sin publicidad. Sin servidores. Instala la app directamente desde el navegador.',
+        cta_btn:        '🎯 Instalar TiroLog gratis',
+        cta_note:       '<strong>PWA</strong> — no necesitas ir a la App Store. Abre el enlace y pulsa <strong>"Añadir a pantalla de inicio"</strong>.',
+        badge_android:  'Android · Chrome',
+        badge_ios:      'iOS · Safari',
+        badge_desktop:  'Desktop',
+        footer_app:     'Abrir app',
+        footer_copy:    '© 2025 Sapemaib. Todos los derechos reservados.',
+      },
+      en: {
+        nav_cta:        'Install App',
+        badge_free:     'Free',
+        hero_title_1:   'Your training.',
+        hero_title_2:   'Your data.',
+        hero_title_3:   'Your progress.',
+        hero_desc:      'TiroLog is the free app to log and analyze your sport shooting training sessions. Precision shooting and clay shooting. No servers, no ads. Everything on your phone.',
+        hero_cta_install:'🎯 Install free',
+        hero_cta_more:  'See features',
+        meta_free:      'No cost. No ads.',
+        meta_private:   '100% private',
+        meta_offline:   'Works offline',
+        phone_badge:    'Works offline',
+        hl_free:        '<strong>100% free</strong> · No subscription',
+        hl_private:     '<strong>No servers</strong> · Local data',
+        hl_langs:       '<strong>9 languages</strong> available',
+        hl_pwa:         '<strong>PWA</strong> · Install like a native app',
+        feat_label:     'Features',
+        feat_title:     'Everything you need to train smarter',
+        feat_subtitle:  'Built for precision shooters and clay shooters, from the first training session to competition day.',
+        f1_title:       'Session log',
+        f1_desc:        'Record every training and competition session with all the details: firearm, distance, conditions and results.',
+        f2_title:       'Stats & progress',
+        f2_desc:        'Visualize your improvement over time with clear charts and meaningful metrics.',
+        f3_title:       'Series counter',
+        f3_desc:        'Free-shooting mode with a built-in series counter for quick practice sessions.',
+        f4_title:       'PDF reports',
+        f4_desc:        'Export detailed PDF reports to share with your coach or keep your own records.',
+        f5_title:       'Google Drive backup',
+        f5_desc:        'Optional backup to your personal Google Drive. Your data stays yours.',
+        f6_title:       'Precision & clay shooting',
+        f6_desc:        'Full support for multiple disciplines: precision, Olympic trap, skeet, sporting clays and more.',
+        f7_title:       'Works 100% offline',
+        f7_desc:        'As an installable PWA, TiroLog works even without cell coverage at the range. Install once, use anywhere, always.',
+        priv_label:     'Privacy',
+        priv_title:     'Your data is yours. Always.',
+        priv_desc:      'TiroLog has no servers of its own. All your information is stored on your device. No mandatory accounts, no tracking, no ads.',
+        pp1:            'Data never leaves your device unless you choose to back it up.',
+        pp2:            'No sign-up or account required to use the app.',
+        pp3:            'No ads and no behavior tracking.',
+        pp4:            'Encrypted, private backup to your own Google Drive — only if you enable it.',
+        diag_optional:  'Optional, encrypted backup',
+        diag_never:     'Never. They don\'t exist.',
+        sc_label:       'The app',
+        sc_title:       'Designed for the shooter',
+        sc_subtitle:    'Clean, fast, focused interface. No distractions on the range.',
+        sc1: 'Home', sc2: 'New session', sc3: 'Statistics', sc4: 'Counter', sc5: 'PDF report',
+        lang_label:     'Languages',
+        lang_title:     'Available in 9 languages',
+        lang_desc:      'TiroLog speaks your language. With special support for Spain\'s co-official languages.',
+        globe_label:    'languages available',
+        globe_desc:     'Language is detected automatically from your device. You can change it any time in the app settings.',
+        cta_label:      'Start today',
+        cta_title:      'Log your next session with TiroLog',
+        cta_desc:       'Free. No ads. No servers. Install the app straight from your browser.',
+        cta_btn:        '🎯 Install TiroLog free',
+        cta_note:       '<strong>PWA</strong> — no App Store needed. Open the link and tap <strong>"Add to Home Screen"</strong>.',
+        badge_android:  'Android · Chrome',
+        badge_ios:      'iOS · Safari',
+        badge_desktop:  'Desktop',
+        footer_app:     'Open app',
+        footer_copy:    '© 2025 Sapemaib. All rights reserved.',
+      }
+    };
+
+    let currentLang = 'es';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      // Update all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          el.innerHTML = t[key];
+        }
+      });
+
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        const active = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      // Update html lang attribute
+      document.documentElement.setAttribute('lang', lang);
+
+      // Update meta description
+      const metaDesc = {
+        es: 'TiroLog es la PWA gratuita para registrar y analizar tus entrenamientos de tiro deportivo. Sin publicidad, sin servidores. Tus datos en tu móvil.',
+        en: 'TiroLog is the free PWA to log and analyze your sport shooting training sessions. No ads, no servers. Your data on your phone.'
+      };
+      document.querySelector('meta[name="description"]').setAttribute('content', metaDesc[lang]);
+
+      // Update page title
+      const titles = {
+        es: 'TiroLog — Registro y análisis de entrenamientos de tiro deportivo',
+        en: 'TiroLog — Log and analyze your sport shooting training'
+      };
+      document.title = titles[lang];
+    }
+
+    /* ─── Scroll reveal ─────────────────────────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ─── Navbar shadow on scroll ───────────────────────────────────────────── */
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      navbar.style.boxShadow = window.scrollY > 10
+        ? '0 4px 24px rgba(0,0,0,.4)'
+        : 'none';
+    }, { passive: true });
+  </script>
+
 </body>
 </html>
